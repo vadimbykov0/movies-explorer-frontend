@@ -13,7 +13,8 @@ https://movies.vadimbykov.nomoredomainsrocks.ru
 https://api.movies.vadimbykov.nomoredomainsrocks.ru
 
 ### Ссылка на макет в Figma
-https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/light-1?type=design&node-id=891-3857&mode=design&t=2o1n0jVrlmCiWxAF-0
+Выбранный макет dark-5
+https://clck.ru/36Gbnf
 
 ### Запуск проекта
 `npm run start` — запускает приложение
