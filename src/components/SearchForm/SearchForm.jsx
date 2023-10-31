@@ -28,7 +28,8 @@ export default function SearchForm({ isCheck, changeState }) {
           onSubmit={onSubmit}
           noValidate
         >
-          <input
+          <div className="search__form-box">
+            <input
             className="search__input"
             name="search-movies"
             placeholder="Фильм"
@@ -37,14 +38,15 @@ export default function SearchForm({ isCheck, changeState }) {
             minLength="1"
             maxLength="200"
             required
-          />
-          <button className="search__submit" type="submit"></button>
-        </form>
-        <span className={`search__error ${isError && 'search__error_type_active'}`}>{isError ? 'Введите название фильма' : ''}</span>
-        <FilterCheckbox
+            />
+            <button className="search__submit" type="submit"></button>
+          </div>
+          <FilterCheckbox
           isCheck={isCheck}
           changeState={changeState}
-        />
+          />
+        </form>
+        <span className={`search__error ${isError && 'search__error_type_active'}`}>{isError ? 'Введите название фильма' : ''}</span>
       </div>
     </section>
   );

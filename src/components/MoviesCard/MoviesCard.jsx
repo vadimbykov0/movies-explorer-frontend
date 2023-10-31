@@ -20,13 +20,13 @@ export default function MoviesCard({ name, src, trailerLink }) {
       <article>
         <Link
           to={trailerLink}
-          target='_blank'
+          target="_blank"
         >
-          <img className="movie-card-element__image" src={src} alt="Обложка фильма" />
+          <img className="movie-card-element__image" src={src} alt={name} />
         </Link>
         <div className="movie-card-element__card-info">
           <div className="movie-card-element__info-box">
-            <p className="movie-card-element__title">{name}</p>
+            <h2 className="movie-card-element__title">{name}</h2>
             <span className="movie-card-element__duration">1ч42м</span>
           </div>
           {pathname === '/movies' ?

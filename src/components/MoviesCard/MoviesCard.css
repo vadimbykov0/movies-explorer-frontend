@@ -47,7 +47,6 @@
   background-color: transparent;
   background-position: -6px -3px;
   background-repeat: no-repeat;
-  cursor: pointer;
   transition: opacity .3s linear;
   margin: 14px 0 0 0;
   padding: 0;
@@ -93,5 +92,10 @@
 @media (hover: hover) and (pointer: fine) {
   .movie-card-element__save:hover {
     opacity: .7;
+  }
+
+  .movie-card-element__handle:hover {
+    opacity: .7;
+    cursor: pointer;
   }
 }

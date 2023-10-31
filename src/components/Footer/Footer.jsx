@@ -11,8 +11,14 @@ export default function Footer() {
       <div className="footer__box">
         <p className="footer__text">&#169; 2023</p>
         <nav className="footer__nav">
-          <Link className="footer__link" to={'https://practicum.yandex.ru'} target='_blank'>Яндекс.Практикум</Link>
-          <Link className="footer__link" to={'https://github.com/vadimbykov0'} target='_blank'>Github</Link>
+          <ul className="footer__links-lists">
+            <li className="footer__links-list">
+              <Link className="footer__link" to={'https://practicum.yandex.ru'} target='_blank'>Яндекс.Практикум</Link>
+            </li>
+            <li className="footer__links-list">
+              <Link className="footer__link" to={'https://github.com/vadimbykov0'} target='_blank'>Github</Link>
+            </li>
+          </ul>
         </nav>
       </div>
     </footer>

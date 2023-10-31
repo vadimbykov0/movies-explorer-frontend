@@ -26,7 +26,6 @@
   border-radius: 5px;
   border: 1px solid #424242;
   background-color: transparent;
-  cursor: pointer;
 }
 
 .movies-cards__more_type_hidden {
@@ -49,7 +48,7 @@
 
 @media screen and (max-width: 767px) {
   .movies-cards {
-    padding-top: 50px;
+    padding-top: 39px;
     padding-right: 10px;
     padding-left: 10px;
   }
@@ -63,5 +62,12 @@
   .movies-cards__more {
     width: 240px;
     height: 36px;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .movies-cards__more:hover {
+    opacity: .7;
+    cursor: pointer;
   }
 }

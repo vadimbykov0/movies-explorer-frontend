@@ -8,9 +8,9 @@ export default function SectionAuth({ name, children, isValid, onSubmit }) {
   return (
     <section className="auth">
       <Link className="auth__link auth__link_type_home" to={'/'}></Link>
-      <h2 className="auth__title">
+      <h1 className="auth__title">
         {name === 'signin' ? 'Рады видеть!' : 'Добро пожаловать!'}
-      </h2>
+      </h1>
       <Form name={name} isValid={isValid} onSubmit={onSubmit}>
         {children}
       </Form>

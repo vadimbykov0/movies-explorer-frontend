@@ -115,8 +115,8 @@
 
   .about-project__box {
     grid-template-columns: 1fr;
-    row-gap: 16px;
-    margin-bottom: 62px;
+    row-gap: 15px;
+    margin-bottom: 60px;
   }
 
   .about-project__subtitle {

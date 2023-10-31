@@ -3,6 +3,7 @@
   align-self: flex-start;
   cursor: pointer;
   transition: .3s linear opacity;
+  position: relative;
 }
 
 .search__input-box {
@@ -15,7 +16,6 @@
   line-height: 18px;
   color: #fff;
   margin-left: 14px;
-  padding-top: 3px;
 }
 
 .search__checkbox-hidden {
@@ -26,8 +26,6 @@
 
 .search__check-svg {
   position: absolute;
-  left: 0;
-  top: 2px;
 }
 
 .search__check-svg-circle {
