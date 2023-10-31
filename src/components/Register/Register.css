@@ -1,0 +1,47 @@
+.auth__fieldset {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.auth__subtitle {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: normal;
+  color: #8b8b8b;
+  margin-bottom: 10px;
+}
+
+.auth__input {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: normal;
+  color: #fff;
+  background-color: transparent;
+  background-color: #2f2f2f;
+  border: none;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.auth__input_type_invalid {
+  color: #ee3465;
+}
+
+.auth__input:focus {
+  outline: 1px solid #4285f4;
+}
+
+.auth__error {
+  min-height: 24px;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: normal;
+  color: #ee3465;
+  display: block;
+  margin: 0;
+  padding: 0;
+}

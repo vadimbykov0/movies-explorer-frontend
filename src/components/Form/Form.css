@@ -1,0 +1,118 @@
+/* Login, Register */
+.auth__error-request {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: normal;
+  color: #ff004c;
+  display: block;
+  width: 100%;
+  min-height: 14px;
+  margin-top: 113px;
+  visibility: hidden;
+}
+
+.auth__error-request_type_active {
+  visibility: visible;
+}
+
+.auth__error-request_type_reg {
+  margin-top: 25px;
+}
+
+.auth__submit {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
+  color: #fff;
+  background-color: #4285f4;
+  width: 100%;
+  min-height: 45px;
+  border: none;
+  border-radius: 3px;
+  padding: 0;
+  margin-top: 25px;
+  cursor: pointer;
+  transition: background-color .3s linear;
+}
+
+.auth__submit_type_disabled {
+  background-color: #f8f8f8;
+  color: #c2c2c2;
+  pointer-events: none;
+}
+
+@media screen and (max-width: 525px) {
+  .auth__error-request {
+    margin-top: 200px;
+  }
+
+  .auth__error-request_type_reg {
+    margin-top: 98px;
+  }
+
+  .auth__submit {
+    font-size: 12px;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .auth__submit:hover {
+    background-color: rgba(66, 133, 244, .8);
+  }
+}
+
+/* Profile */
+.profile__error-request {
+  font-size: 11px;
+  font-weight: 400;
+  line-height: normal;
+  color: #ff004c;
+  text-align: center;
+  visibility: hidden;
+  display: block;
+  min-height: 14px;
+  margin: 178px 0 0 0;
+}
+
+.profile__error-request_type_active {
+  visibility: visible;
+}
+
+.profile__submit {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: normal;
+  color: #fff;
+  text-align: center;
+  display: block;
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  margin-top: 14px;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity .3s linear;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__error-request {
+    margin-top: 169px;
+  }
+}
+
+@media screen and (max-width: 525px) {
+  .profile__error-request {
+    margin-top: 318px;
+  }
+
+  .profile__submit {
+    font-size: 12px;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .profile__submit:hover {
+    opacity: .7;
+  }
+}
