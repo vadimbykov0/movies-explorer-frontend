@@ -1,22 +1,28 @@
-import { useNavigate } from "react-router-dom";
-
 import SectionAuth from "../SectionAuth/SectionAuth";
 import useFormValidation from '../../hooks/useFormValidation';
 
 import '../Register/Register.css';
 
-export default function Login({ name, setLoggedIn }) {
-  const navigate = useNavigate();
+export default function Login({ name, onLogin, isSend, isError, setIsError }) {
   const { values, errors, isInputValid, isValid, handleChange } = useFormValidation();
 
-  function onLogin(evt) {
+  function onSubmit(evt) {
     evt.preventDefault()
-    navigate('/movies')
-    setLoggedIn(true)
+    onLogin(
+      values.email,
+      values.password
+    )
   }
 
   return (
-    <SectionAuth name={name} isValid={isValid} onSubmit={onLogin}>
+    <SectionAuth
+      name={name}
+      isValid={isValid}
+      onSubmit={onSubmit}
+      isError={isError}
+      setIsError={setIsError}
+      isSend={isSend}
+    >
       <fieldset className="auth__fieldset">
         <span className="auth__subtitle">E-mail</span>
         <input
@@ -27,8 +33,13 @@ export default function Login({ name, setLoggedIn }) {
           placeholder="Введите e-mail"
           className={`auth__input ${isInputValid.email === undefined || isInputValid.email ? '' : 'auth__input_type_invalid'}`}
           value={values.email || ''}
-          onChange={handleChange}
+          onChange={(evt) => {
+            handleChange(evt)
+            setIsError(false)
+          }}
           autoComplete="on"
+          disabled={isSend}
+          pattern={"^\\S+@\\S+\\.\\S+$"}
           required
         />
         <span className="auth__error">{errors.email}</span>
@@ -43,8 +54,12 @@ export default function Login({ name, setLoggedIn }) {
           placeholder="Введите пароль"
           className={`auth__input ${isInputValid.password === undefined || isInputValid.password ? '' : 'auth__input_type_invalid'}`}
           value={values.password || ''}
-          onChange={handleChange}
+          onChange={(evt) => {
+            handleChange(evt)
+            setIsError(false)
+          }}
           autoComplete="on"
+          disabled={isSend}
           required
         />
         <span className="auth__error">{errors.password}</span>

@@ -1,178 +1,27 @@
-import CoverMovieTemplate from '../images/template-movie.png';
+const SIZE_WIDTH_LARGE = 1280;
+const SIZE_WIDTH_MEDIUM = 1024;
+const SIZE_WIDTH_SMALL = 650;
 
-export const movies = [
-  {
-    id: 1,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 2,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    duration: 40,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 3,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 4,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    duration: 40,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 5,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    duration: 40,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 6,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 7,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    duration: 40,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 8,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    duration: 40,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 9,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 10,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 11,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 12,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 13,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 14,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    duration: 40,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 15,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    duration: 40,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 16,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    duration: 40,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 17,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    duration: 40,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 18,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    duration: 40,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 19,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    duration: 40,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 20,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    duration: 40,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-]
+const NUMBER_MOVIES_TO_RENDER_MAX = 16;
+const NUMBER_MOVIES_TO_RENDER_LARGE = 12;
+const NUMBER_MOVIES_TO_RENDER_MEDIUM = 8;
+const NUMBER_MOVIES_TO_RENDER_SMALL = 5;
 
-export const saveMovies = [
-  {
-    id: 1,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    duration: 40,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 2,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 3,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    duration: 40,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 4,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    duration: 40,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 5,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-  {
-    id: 6,
-    name: '33 слова о дизайне',
-    image: CoverMovieTemplate,
-    trailerLink: "https://www.youtube.com/watch?v=5ovzC93EneA",
-  },
-]
+const NUMBER_MOVIES_TO_ADD_MAX = 4;
+const NUMBER_MOVIES_TO_ADD_MEDIUM = 3;
+const NUMBER_MOVIES_TO_ADD_SMALL = 2;
+
+export {
+  SIZE_WIDTH_LARGE,
+  SIZE_WIDTH_MEDIUM,
+  SIZE_WIDTH_SMALL,
+
+  NUMBER_MOVIES_TO_RENDER_MAX,
+  NUMBER_MOVIES_TO_RENDER_LARGE,
+  NUMBER_MOVIES_TO_RENDER_MEDIUM,
+  NUMBER_MOVIES_TO_RENDER_SMALL,
+
+  NUMBER_MOVIES_TO_ADD_MAX,
+  NUMBER_MOVIES_TO_ADD_MEDIUM,
+  NUMBER_MOVIES_TO_ADD_SMALL
+}

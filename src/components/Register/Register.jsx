@@ -1,22 +1,29 @@
-import { useNavigate } from "react-router-dom";
-
-import SectionAuth from "../SectionAuth/SectionAuth";
+import SectionAuth from '../SectionAuth/SectionAuth';
 import useFormValidation from '../../hooks/useFormValidation';
 
 import './Register.css';
 
-export default function Login({ name, setLoggedIn }) {
-  const navigate = useNavigate();
+export default function Login({ name, onRegister, isError, setIsError, isSend }) {
   const { values, errors, isInputValid, isValid, handleChange } = useFormValidation();
 
-  function onLogin(evt) {
+  function onSubmit(evt) {
     evt.preventDefault()
-    navigate('/signin')
-    setLoggedIn(true)
+    onRegister(
+      values.username,
+      values.email,
+      values.password
+    )
   }
 
   return (
-    <SectionAuth name={name} isValid={isValid} onSubmit={onLogin}>
+    <SectionAuth
+      name={name}
+      isValid={isValid}
+      onSubmit={onSubmit}
+      isError={isError}
+      setIsError={setIsError}
+      isSend={isSend}
+    >
       <fieldset className="auth__fieldset">
         <span className="auth__subtitle">Имя</span>
         <input
@@ -27,8 +34,12 @@ export default function Login({ name, setLoggedIn }) {
           placeholder="Введите имя"
           className={`auth__input ${isInputValid.username === undefined || isInputValid.username ? '' : 'auth__input_type_invalid'}`}
           value={values.username || ''}
-          onChange={handleChange}
+          onChange={(evt) => {
+            handleChange(evt)
+            setIsError(false)
+          }}
           autoComplete="on"
+          disabled={isSend}
           required
         />
         <span className="auth__error">{errors.username}</span>
@@ -43,8 +54,13 @@ export default function Login({ name, setLoggedIn }) {
           placeholder="Введите e-mail"
           className={`auth__input ${isInputValid.email === undefined || isInputValid.email ? '' : 'auth__input_type_invalid'}`}
           value={values.email || ''}
-          onChange={handleChange}
+          onChange={(evt) => {
+            handleChange(evt)
+            setIsError(false)
+          }}
           autoComplete="on"
+          pattern={"^\\S+@\\S+\\.\\S+$"}
+          disabled={isSend}
           required
         />
         <span className="auth__error">{errors.email}</span>
@@ -59,8 +75,12 @@ export default function Login({ name, setLoggedIn }) {
           placeholder="Введите пароль"
           className={`auth__input ${isInputValid.password === undefined || isInputValid.password ? '' : 'auth__input_type_invalid'}`}
           value={values.password || ''}
-          onChange={handleChange}
+          onChange={(evt) => {
+            handleChange(evt)
+            setIsError(false)
+          }}
           autoComplete="on"
+          disabled={isSend}
           required
         />
         <span className="auth__error">{errors.password}</span>

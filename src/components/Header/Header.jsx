@@ -7,7 +7,7 @@ export default function Header({ name, loggedIn }) {
   const { pathname } = useLocation();
   const [isOpen, setIsOpen] = useState(false);
 
-  function handelClick() {
+  function handleClick() {
     if (isOpen) {
       setIsOpen(false)
     } else {
@@ -39,8 +39,12 @@ export default function Header({ name, loggedIn }) {
         <Link className="header__logo" to={'/'} />
         <nav>
           <ul className="header__nav-box">
-            <li><Link className="header__button-signup" to={'/signup'}>Регистрация</Link></li>
-            <li><Link className="header__button-signin" to={'/signin'}>Войти</Link></li>
+            <li>
+              <Link className="header__button-signup" to={'/signup'}>Регистрация</Link>
+            </li>
+            <li>
+              <Link className="header__button-signin" to={'/signin'}>Войти</Link>
+            </li>
           </ul>
         </nav>
       </>
@@ -65,9 +69,9 @@ export default function Header({ name, loggedIn }) {
                 </Link>
               </li>
             </ul>
-            <button className="header__mob-nav-close" type="button" onClick={handelClick}></button>
+            <button className="header__mob-nav-close" type="button" onClick={handleClick}></button>
           </nav>
-          <button className="header__mob-nav" type="button" onClick={handelClick}></button>
+          <button className="header__mob-nav" type="button" onClick={handleClick}></button>
         </div>
       </>
       }

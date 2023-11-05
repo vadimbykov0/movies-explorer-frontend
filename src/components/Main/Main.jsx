@@ -1,51 +1,20 @@
-import { useEffect, useState } from 'react';
-
-import Promo from "../Promo/Promo";
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
+import Promo from '../Promo/Promo';
 import AboutProject from '../AboutProject/AboutProject';
 import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import SearchForm from '../SearchForm/SearchForm';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 import Profile from '../Profile/Profile';
-import { movies, saveMovies } from '../../utils/constants';
+import SavedMovies from '../SavedMovies/SavedMovies';
+import Movies from '../Movies/Movies';
 
 import './Main.css';
 
-export default function Main({ name, setLoggedIn }) {
-  const [moviesAll, setMoviesAll] = useState([]);
-  const [saveMovie, setSaveMovie] = useState([]);
-  const [isCheckMoviesAll, setIsCheckMoviesAll] = useState(true);
-  const [isCheckMoviesSave, setIsCheckMoviesSave] = useState(true);
-
-  useEffect(() => {
-    setMoviesAll(movies)
-    setSaveMovie(saveMovies)
-  }, [])
-
-  function onCheckMoviesSave() {
-    if (isCheckMoviesSave) {
-      setIsCheckMoviesSave(false)
-      setSaveMovie(saveMovie.filter((element) => element.duration <= 40))
-    } else {
-      setIsCheckMoviesSave(true)
-      setSaveMovie(saveMovies)
-    }
-  }
-
-  function onCheckMoviesAll() {
-    if (isCheckMoviesAll) {
-      setIsCheckMoviesAll(false)
-
-      setMoviesAll(moviesAll.filter((element) => element.duration <= 40))
-    } else {
-      setIsCheckMoviesAll(true)
-      setMoviesAll(movies)
-    }
-  }
+export default function Main({ name, onRegister, onLogin, logOut, editUserData, isError, setIsError, savedMovies, onDelete, addMovie, isSuccess, setSuccess, isEdit, setIsEdit, isSend }) {
 
   return (
     <main className="main">
@@ -58,30 +27,63 @@ export default function Main({ name, setLoggedIn }) {
             <AboutMe />
             <Portfolio />
           </>,
-        signin: <Login
-                  name={name}
-                  setLoggedIn={setLoggedIn}
-                />,
-        signup: <Register
-                  name={name}
-                  setLoggedIn={setLoggedIn}
-                />,
-        notfound: <NotFound />,
-        profile: <Profile
-                    name={name}
-                    setLoggedIn={setLoggedIn}
-                  />,
+        signin:
+          <Login
+            name={name}
+            onLogin={onLogin}
+            isError={isError}
+            setIsError={setIsError}
+            isSend={isSend}
+          />,
+        signup:
+          <Register
+            name={name}
+            onRegister={onRegister}
+            isError={isError}
+            setIsError={setIsError}
+            isSend={isSend}
+          />,
+        notfound:
+          <NotFound />,
+        profile:
+          <>
+            <Header />
+            <Profile
+              name={name}
+              logOut={logOut}
+              editUserData={editUserData}
+              isError={isError}
+              setIsError={setIsError}
+              isSuccess={isSuccess}
+              setSuccess={setSuccess}
+              isEdit={isEdit}
+              setIsEdit={setIsEdit}
+              isSend={isSend}
+            />
+          </>,
         movies:
           <>
-            <SearchForm isCheck={isCheckMoviesAll} changeState={onCheckMoviesAll} />
-            <MoviesCardList movies={moviesAll} />
+            <Header />
+            <Movies
+              savedMovies={savedMovies}
+              addMovie={addMovie}
+              isError={isError}
+              setIsError={setIsError}
+            />
+            <Footer />
           </>,
         savedmovies:
           <>
-            <SearchForm isCheck={isCheckMoviesSave} changeState={onCheckMoviesSave} />
-            <MoviesCardList movies={saveMovie} />
+            <Header />
+            <SavedMovies
+              onDelete={onDelete}
+              savedMovies={savedMovies}
+              isError={isError}
+              setIsError={setIsError}
+            />
+            <Footer />
           </>
       }[name]}
     </main>
-  );
+  )
 }

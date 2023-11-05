@@ -6,6 +6,10 @@
   position: relative;
 }
 
+.search__filter-checkbox_type_disabled {
+  pointer-events: none;
+}
+
 .search__input-box {
   position: relative;
 }
