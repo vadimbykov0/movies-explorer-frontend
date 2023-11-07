@@ -5,8 +5,11 @@ Movies Explorer Frontend — приложение на React с возможно
 
 ### Активные ссылки 
 Репозиторий проекта https://github.com/vadimbykov0/movies-explorer-frontend
+
 Адрес размещения фронтенда на сервере https://movies.vadimbykov.nomoredomainsrocks.ru
+
 Адрес домена сервера https://api.movies.vadimbykov.nomoredomainsrocks.ru
+
 Ссылка на пул реквест https://github.com/vadimbykov0/movies-explorer-frontend/pull/2
 
 ### Ссылка на макет в Figma
