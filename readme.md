@@ -14,6 +14,7 @@ Movies Explorer Frontend — приложение на React с возможно
 
 ### Ссылка на макет в Figma
 Выбранный макет dark-5
+
 https://clck.ru/36Gbnf
 
 ### Запуск проекта
