@@ -14,7 +14,23 @@ import Movies from '../Movies/Movies';
 
 import './Main.css';
 
-export default function Main({ name, onRegister, onLogin, logOut, editUserData, isError, setIsError, savedMovies, onDelete, addMovie, isSuccess, setSuccess, isEdit, setIsEdit, isSend }) {
+export default function Main({
+  name,
+  onRegister,
+  onLogin,
+  logOut,
+  onUpdateCurrentUser,
+  isSend,
+  isEdit,
+  setIsEdit,
+  isError,
+  setIsError,
+  savedMovies,
+  onDelete,
+  addMovie,
+  isSuccess,
+  setSuccess
+}) {
 
   return (
     <main className="main">
@@ -51,7 +67,7 @@ export default function Main({ name, onRegister, onLogin, logOut, editUserData, 
             <Profile
               name={name}
               logOut={logOut}
-              editUserData={editUserData}
+              onUpdateCurrentUser={onUpdateCurrentUser}
               isError={isError}
               setIsError={setIsError}
               isSuccess={isSuccess}

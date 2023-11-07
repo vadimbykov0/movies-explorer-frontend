@@ -7,7 +7,19 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 import './Profile.css';
 
-export default function Profile({ name, logOut, editUserData, isError, setIsError, isSuccess, setSuccess, setIsEdit, isEdit, isSend }) {
+export default function Profile({
+  name,
+  logOut,
+  onUpdateCurrentUser,
+  isError,
+  setIsError,
+  isSuccess,
+  setSuccess,
+  setIsEdit,
+  isEdit,
+  isSend
+}) {
+
   const currentUser = useContext(CurrentUserContext);
   const { values, errors, isInputValid, isValid, handleChange, reset } = useFormValidation();
 
@@ -18,9 +30,9 @@ export default function Profile({ name, logOut, editUserData, isError, setIsErro
     })
   }, [reset, currentUser, isEdit])
 
-  function onSubmit(evt) {
+  function handleSubmit(evt) {
     evt.preventDefault();
-    editUserData(
+    onUpdateCurrentUser(
       values.username,
       values.email
     )
@@ -32,7 +44,7 @@ export default function Profile({ name, logOut, editUserData, isError, setIsErro
       <Form
         name={name}
         isValid={isValid}
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit}
         isError={isError}
         setIsError={setIsError}
         values={values}
@@ -53,7 +65,7 @@ export default function Profile({ name, logOut, editUserData, isError, setIsErro
             className={`profile__input ${isInputValid.username === undefined || isInputValid.username ? '' : 'profile__input_type_invalid'}`}
             value={values.username || ''}
             onChange={handleChange}
-            disabled={!isEdit}
+            disabled={isSend || !isEdit}
             required
           />
         </fieldset>
@@ -69,7 +81,7 @@ export default function Profile({ name, logOut, editUserData, isError, setIsErro
             className={`profile__input ${isInputValid.email === undefined || isInputValid.email ? '' : 'profile__input_type_invalid'}`}
             value={values.email || ''}
             onChange={handleChange}
-            disabled={!isEdit}
+            disabled={isSend || !isEdit}
             pattern={"^\\S+@\\S+\\.\\S+$"}
             required
           />

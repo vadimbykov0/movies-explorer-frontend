@@ -1,13 +1,18 @@
 import './FilterCheckbox.css';
 
-export default function FilterCheckbox({ isCheck, changeShort, firstEntrance }) {
+export default function FilterCheckbox({
+  isCheck,
+  changeStateCheckbox,
+  inactiveFirstVisit
+}) {
+
   return (
-    <label className={`search__filter-checkbox ${firstEntrance && 'search__filter-checkbox_type_disabled'}`}>
+    <label className={`search__filter-checkbox ${inactiveFirstVisit && 'search__filter-checkbox_type_disabled'}`}>
       <input
         className="search__checkbox-hidden"
         type="checkbox"
-        onChange={() => changeShort()}
-        disabled={firstEntrance}
+        onChange={() => changeStateCheckbox()}
+        disabled={inactiveFirstVisit}
       />
       <svg className="search__check-svg" width="36" height="20" viewBox="0 0 36 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="small-tumbler">
@@ -21,7 +26,7 @@ export default function FilterCheckbox({ isCheck, changeShort, firstEntrance }) 
           />
         </g>
       </svg>
-      <span className="search__checkbox-text">Короткометражки</span>
+      <span className={`search__checkbox-text ${inactiveFirstVisit && 'search__checkbox-text_type_disabled'}`}>Короткометражки</span>
     </label>
   );
 }

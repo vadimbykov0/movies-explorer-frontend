@@ -3,7 +3,14 @@ import useFormValidation from '../../hooks/useFormValidation';
 
 import './Register.css';
 
-export default function Login({ name, onRegister, isError, setIsError, isSend }) {
+export default function Login({
+  name,
+  onRegister,
+  isError,
+  setIsError,
+  isSend
+}) {
+
   const { values, errors, isInputValid, isValid, handleChange } = useFormValidation();
 
   function onSubmit(evt) {
@@ -38,7 +45,6 @@ export default function Login({ name, onRegister, isError, setIsError, isSend })
             handleChange(evt)
             setIsError(false)
           }}
-          autoComplete="on"
           disabled={isSend}
           required
         />
@@ -58,7 +64,6 @@ export default function Login({ name, onRegister, isError, setIsError, isSend })
             handleChange(evt)
             setIsError(false)
           }}
-          autoComplete="on"
           pattern={"^\\S+@\\S+\\.\\S+$"}
           disabled={isSend}
           required
@@ -79,12 +84,11 @@ export default function Login({ name, onRegister, isError, setIsError, isSend })
             handleChange(evt)
             setIsError(false)
           }}
-          autoComplete="on"
           disabled={isSend}
           required
         />
         <span className="auth__error">{errors.password}</span>
       </fieldset>
     </SectionAuth>
-  );
+  )
 }

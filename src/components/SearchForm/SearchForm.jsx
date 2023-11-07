@@ -6,7 +6,19 @@ import useFormValidation from '../../hooks/useFormValidation';
 
 import './SearchForm.css';
 
-export default function SearchForm({ isCheck, searchedMovie, searchMovies, isError, setIsError, firstEntrance, savedMovie, movies, filter, setIsCheck }) {
+export default function SearchForm({
+  isCheck,
+  searchedMovie,
+  searchMovies,
+  isError,
+  setIsError,
+  inactiveFirstVisit,
+  savedMovie,
+  movies,
+  filter,
+  setIsCheck
+}) {
+
   const { pathname } = useLocation();
   const { values, reset, handleChange } = useFormValidation();
 
@@ -17,7 +29,7 @@ export default function SearchForm({ isCheck, searchedMovie, searchMovies, isErr
       reset({ search: searchedMovie })
     }
     setIsError(false)
-  }, [searchedMovie, reset, setIsError, pathname, savedMovie])
+  }, [pathname, reset, searchedMovie, setIsError, savedMovie])
 
   function onSubmit(evt) {
     evt.preventDefault()
@@ -29,7 +41,7 @@ export default function SearchForm({ isCheck, searchedMovie, searchMovies, isErr
       }
   }
 
-  function changeShort() {
+  function changeStateCheckbox() {
     if (isCheck) {
       setIsCheck(false)
       filter(values.search, false, movies)
@@ -71,8 +83,8 @@ export default function SearchForm({ isCheck, searchedMovie, searchMovies, isErr
           <span className={`search__error ${isError && 'search__error_type_active'}`}>{'Нужно ввести ключевое слово'}</span>
           <FilterCheckbox
             isCheck={isCheck}
-            changeShort={changeShort}
-            firstEntrance={firstEntrance}
+            changeStateCheckbox={changeStateCheckbox}
+            inactiveFirstVisit={inactiveFirstVisit}
           />
         </form>
       </div>

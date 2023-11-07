@@ -22,6 +22,10 @@
   margin-left: 14px;
 }
 
+.search__checkbox-text_type_disabled {
+  color: #a0a0a0;
+}
+
 .search__checkbox-hidden {
   width: 36px;
   height: 20px;

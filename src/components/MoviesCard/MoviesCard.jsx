@@ -1,31 +1,33 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+import convertTime from '../../utils/convertTime';
+
 import './MoviesCard.css';
 
-export default function MoviesCard({ data, onDelete, addMovie, savedMovies }) {
+export default function MoviesCard({
+  data,
+  savedMovies,
+  onDelete,
+  addMovie
+}) {
+
   const { pathname } = useLocation();
-  const [click, setClick] = useState(false);
+  const [isClickFavoriteButton, setIsClickFavoriteButton] = useState(false);
 
   useEffect(() => {
     if (pathname === '/movies')
-      setClick(savedMovies.some(element => data.id === element.movieId))
-  }, [savedMovies, data.id, setClick, pathname])
+      setIsClickFavoriteButton(savedMovies.some(i => data.id === i.movieId))
+  }, [savedMovies, setIsClickFavoriteButton, data.id, pathname])
 
-  function onClick() {
-    if (savedMovies.some(element => data.id === element.movieId)) {
-      setClick(true)
-      addMovie(data)
+  function handleClickFavoriteButton() {
+    if (savedMovies.some(i => data.id === i.movieId)) {
+      addMovie(data);
+      setIsClickFavoriteButton(true);
     } else {
-      setClick(false)
-      addMovie(data)
+      addMovie(data);
+      setIsClickFavoriteButton(false);
     }
-  }
-
-  function convertTime(duration) {
-    const minutes = duration % 60;
-    const hours = Math.floor(duration / 60);
-    return (hours === 0 ? `${minutes}м` : minutes === 0 ? `${hours}ч` : `${hours}ч${minutes}м`)
   }
 
   return (
@@ -37,8 +39,8 @@ export default function MoviesCard({ data, onDelete, addMovie, savedMovies }) {
         >
           <img
             className="movie-card-element__image"
-            src={pathname === '/movies' ? `https://api.nomoreparties.co${data.image.url}` : data.image}
             alt={data.name}
+            src={pathname === '/movies' ? `https://api.nomoreparties.co${data.image.url}` : data.image}
           />
         </Link>
         <div className="movie-card-element__card-info">
@@ -48,14 +50,14 @@ export default function MoviesCard({ data, onDelete, addMovie, savedMovies }) {
           </div>
           {pathname === '/movies' ?
             <button
+              className={`movie-card-element__handle ${isClickFavoriteButton ? 'movie-card-element__handle_type_active' : ''}`}
               type="button"
-              className={`movie-card-element__handle ${click ? 'movie-card-element__handle_type_active' : ''}`}
-              onClick={onClick}>
+              onClick={handleClickFavoriteButton}>
             </button>
             :
             <button
-              type="button"
               className={`movie-card-element__handle movie-card-element__handle_type_delete`}
+              type="button"
               onClick={() => onDelete(data._id)}>
             </button>
           }

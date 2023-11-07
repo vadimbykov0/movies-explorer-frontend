@@ -5,60 +5,66 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 import moviesApi from '../../utils/MoviesApi';
 
-export default function Movies({ isError, setIsError, addMovie, savedMovies}) {
+export default function Movies({
+  isError,
+  setIsError,
+  addMovie,
+  savedMovies
+}) {
+
   const [allMovies, setAllMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [searchedMovie, setSearchedMovie] = useState('');
   const [isCheck, setIsCheck] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingMoviesData, setIsLoadingMoviesData] = useState(false);
   const [serverError, setServerError] = useState(false);
-  const [firstEntrance, setFirstEntrance] = useState(true);
+  const [inactiveFirstVisit, setInactiveFirstVisit] = useState(true);
 
-  const filter = useCallback((search, isCheck, movies) => {
-    setSearchedMovie(search)
-    localStorage.setItem('movie', JSON.stringify(search))
-    localStorage.setItem('shorts', JSON.stringify(isCheck))
+  const filter = useCallback((searchQuery, isCheck, movies) => {
+    localStorage.setItem('movie', JSON.stringify(searchQuery))
+    localStorage.setItem('shortsMovies', JSON.stringify(isCheck))
     localStorage.setItem('allMovies', JSON.stringify(movies))
-    setFilteredMovies(movies.filter((movie) => {
-      const searchName = movie.nameRU.toLowerCase().includes(search.toLowerCase())
-      return isCheck ? (searchName && movie.duration <= 40) : searchName
+    setSearchedMovie(searchQuery)
+    setFilteredMovies(movies.filter((item) => {
+      const searchName = item.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
+      return isCheck ? (searchName && item.duration <= 40) : searchName
     }))
   }, [])
 
-  function searchMovies(search) {
+  useEffect(() => {
+    if (localStorage.allMovies && localStorage.shortsMovies && localStorage.movie) {
+      const movies = JSON.parse(localStorage.allMovies)
+      const isCheck = JSON.parse(localStorage.shortsMovies)
+      const searchQuery = JSON.parse(localStorage.movie)
+      setServerError(false)
+      setInactiveFirstVisit(false)
+      setSearchedMovie(searchQuery)
+      setIsCheck(isCheck)
+      setAllMovies(movies)
+      filter(searchQuery, isCheck, movies)
+    }
+  }, [filter])
+
+  function searchMovies(searchQuery) {
     if (allMovies.length === 0) {
-      setIsLoading(true)
+      setIsLoadingMoviesData(true)
       moviesApi.getMovies()
       .then((res) => {
         setAllMovies(res)
+        setInactiveFirstVisit(false)
         setIsCheck(false)
         setServerError(false)
-        setFirstEntrance(false)
-        filter(search, isCheck, res)
+        filter(searchQuery, isCheck, allMovies)
       })
-      .catch(err => {
+      .catch((err) => {
         setServerError(true)
         console.error(`Ошибка при поиске фильмов ${err}`)
       })
-      .finally(() => setIsLoading(false))
+      .finally(() => setIsLoadingMoviesData(false))
     } else {
-      filter(search, isCheck, allMovies)
+      filter(searchQuery, isCheck, allMovies)
     }
   }
-
-  useEffect(() => {
-    if (localStorage.allMovies && localStorage.shorts && localStorage.movie) {
-      const movies = JSON.parse(localStorage.allMovies)
-      const search = JSON.parse(localStorage.movie)
-      const isCheck = JSON.parse(localStorage.shorts)
-      setServerError(false)
-      setFirstEntrance(false)
-      setSearchedMovie(search)
-      setIsCheck(isCheck)
-      setAllMovies(movies)
-      filter(search, isCheck, movies)
-    }
-  }, [filter])
 
   return (
     <>
@@ -69,7 +75,7 @@ export default function Movies({ isError, setIsError, addMovie, savedMovies}) {
         searchedMovie={searchedMovie}
         isError={isError}
         setIsError={setIsError}
-        firstEntrance={firstEntrance}
+        inactiveFirstVisit={inactiveFirstVisit}
         movies={allMovies}
         filter={filter}
       />
@@ -77,9 +83,9 @@ export default function Movies({ isError, setIsError, addMovie, savedMovies}) {
         movies={filteredMovies}
         addMovie={addMovie}
         savedMovies={savedMovies}
-        isLoading={isLoading}
+        isLoading={isLoadingMoviesData}
         serverError={serverError}
-        firstEntrance={firstEntrance}
+        inactiveFirstVisit={inactiveFirstVisit}
         />
     </>
   )

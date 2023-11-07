@@ -17,24 +17,31 @@ import mainApi from '../../utils/MainApi';
 function App() {
   const navigate = useNavigate();
 
-  const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [isSend, setIsSend] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [isCheckToken, setIsCheckToken] = useState(true);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isCheckToken, setIsCheckToken] = useState(true);
+
+  const [isLoadingSignIn, setIsLoadingSignIn] = useState(false);
+  const [isLoadingSignUp, setIsLoadingSignUp] = useState(false);
+  const [isLoadingUpdateCurrentUser, setIsLoadingUpdateCurrentUser] = useState(false);
 
   const [savedMovies, setSavedMovies] = useState([]);
 
   useEffect(() => {
-    if (localStorage.jwt) {
-      Promise.all([mainApi.getUserData(localStorage.jwt), mainApi.getSavedMovies(localStorage.jwt)])
+    const token = localStorage.getItem('jwt')
+    if (token) {
+      Promise.all([
+        mainApi.getUserData(token),
+        mainApi.getSavedMovies(token)
+      ])
         .then(([userData, dataMovies]) => {
           setSavedMovies(dataMovies.reverse())
           setCurrentUser(userData)
-          setLoggedIn(true)
           setIsCheckToken(false)
+          setLoggedIn(true)
         })
         .catch((err) => {
           console.error(`Ошибка при загрузке начальных данных ${err}`)
@@ -52,21 +59,23 @@ function App() {
     setIsSuccess(false)
   }, [])
 
-  function handleDeleteMovie(deleteMovieId) {
+  function handleDeleteSavedMovie(deleteMovieId) {
     mainApi.deleteSavedMovie(deleteMovieId, localStorage.jwt)
       .then(() => {
-        setSavedMovies(savedMovies.filter(movie => { return movie._id !== deleteMovieId }))
+        setSavedMovies(savedMovies.filter(
+          movie => { return movie._id !== deleteMovieId }
+        ))
       })
       .catch((err) => console.error(`Ошибка при удалении фильма ${err}`))
   }
 
   function handleToggleMovie(data) {
-    const isAdd = savedMovies.some(element => data.id === element.movieId)
+    const isAdd = savedMovies.some(i => data.id === i.movieId)
     const searchClickMovie = savedMovies.filter((movie) => {
       return movie.movieId === data.id
     })
     if (isAdd) {
-      handleDeleteMovie(searchClickMovie[0]._id)
+      handleDeleteSavedMovie(searchClickMovie[0]._id)
     } else {
       mainApi.saveMovie(data, localStorage.jwt)
         .then(res => {
@@ -76,55 +85,8 @@ function App() {
     }
   }
 
-  function handleLogin(email, password) {
-    setIsSend(true)
-    mainApi.authorize(email, password)
-      .then(res => {
-        localStorage.setItem('jwt', res.token)
-        setLoggedIn(true)
-        navigate('/movies')
-      })
-      .catch((err) => {
-        setIsError(true)
-        console.error(`Ошибка при авторизации ${err}`)
-      })
-      .finally(() => setIsSend(false))
-  }
-
-  function handleRegister(username, email, password) {
-    setIsSend(true)
-    mainApi.register(username, email, password)
-      .then((res) => {
-        if (res) {
-          setLoggedIn(false)
-          mainApi.authorize(email, password)
-            .then(res => {
-              localStorage.setItem('jwt', res.token)
-              setLoggedIn(true)
-              navigate('/movies')
-            })
-            .catch((err) => {
-              setIsError(true)
-              console.error(`Ошибка при авторизации после регистрации ${err}`)
-            })
-            .finally(() => setIsSend(false))
-        }
-      })
-      .catch((err) => {
-        setIsError(true)
-        console.error(`Ошибка при регистрации ${err}`)
-      })
-      .finally(() => setIsSend(false))
-  }
-
-  function logOut() {
-    localStorage.clear()
-    setLoggedIn(false)
-    navigate('/')
-  }
-
-  function editUserData(username, email) {
-    setIsSend(true)
+  function handleUpdateCurrentUser(username, email) {
+    setIsLoadingUpdateCurrentUser(true)
     mainApi.updateCurrentUserProfile(username, email, localStorage.jwt)
       .then(res => {
         setCurrentUser(res)
@@ -135,7 +97,44 @@ function App() {
         setIsError(true)
         console.error(`Ошибка при редактировании данных пользователя ${err}`)
       })
-      .finally(() => setIsSend(false))
+      .finally(() => setIsLoadingUpdateCurrentUser(false))
+  }
+
+  function handleSignIn(email, password) {
+    setIsLoadingSignIn(true)
+    mainApi.authorize(email, password)
+      .then(res => {
+        localStorage.setItem('jwt', res.token)
+        navigate('/movies')
+        setLoggedIn(true)
+      })
+      .catch((err) => {
+        setIsError(true)
+        console.error(`Ошибка при авторизации пользователя ${err}`)
+      })
+      .finally(() => setIsLoadingSignIn(false))
+  }
+
+  function handleSignUp(username, email, password) {
+    setIsLoadingSignUp(true)
+    mainApi.register(username, email, password)
+      .then((res) => {
+        if (res) {
+          setLoggedIn(false)
+          handleSignIn(email, password)
+        }
+      })
+      .catch((err) => {
+        setIsError(true)
+        console.error(`Ошибка при регистрации пользователя ${err}`)
+      })
+      .finally(() => setIsLoadingSignUp(false))
+  }
+
+  function handleSignOut() {
+    localStorage.clear();
+    setLoggedIn(false);
+    navigate('/');
   }
 
   return (
@@ -151,10 +150,10 @@ function App() {
                 :
                 <Main
                   name="signin"
-                  onLogin={handleLogin}
+                  onLogin={handleSignIn}
                   setIsError={setIsError}
                   isError={isError}
-                  isSend={isSend}
+                  isSend={isLoadingSignIn}
                 />
               }
             />
@@ -166,10 +165,10 @@ function App() {
                 :
                 <Main
                   name="signup"
-                  onRegister={handleRegister}
+                  onRegister={handleSignUp}
                   setIsError={setIsError}
                   isError={isError}
-                  isSend={isSend}
+                  isSend={isLoadingSignUp}
                 />
               }
             />
@@ -208,14 +207,15 @@ function App() {
                   element={Main}
                   name="profile"
                   loggedIn={loggedIn}
-                  logOut={logOut}
-                  editUserData={editUserData}
+                  logOut={handleSignOut}
+                  onUpdateCurrentUser={handleUpdateCurrentUser}
                   isError={isError}
                   setIsError={setIsError}
                   isSuccess={isSuccess}
                   setSuccess={setSuccess}
                   setIsEdit={setIsEdit}
                   isEdit={isEdit}
+                  isSend={isLoadingUpdateCurrentUser}
                 />
               }
             />
@@ -242,7 +242,7 @@ function App() {
                   element={Main}
                   name="savedmovies"
                   savedMovies={savedMovies}
-                  onDelete={handleDeleteMovie}
+                  onDelete={handleDeleteSavedMovie}
                   loggedIn={loggedIn}
                   isError={isError}
                   setIsError={setIsError}

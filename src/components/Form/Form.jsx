@@ -5,7 +5,21 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 import './Form.css';
 
-export default function Form({ name, children, isValid, isSend, onSubmit, isError, setIsError, values, isSuccess, setSuccess, isEdit, setIsEdit }) {
+export default function Form({
+  name,
+  children,
+  isValid,
+  isSend,
+  onSubmit,
+  isError,
+  setIsError,
+  values,
+  isSuccess,
+  setSuccess,
+  isEdit,
+  setIsEdit
+}) {
+
   const { pathname } = useLocation();
   const currentUser = useContext(CurrentUserContext);
 
@@ -21,7 +35,11 @@ export default function Form({ name, children, isValid, isSend, onSubmit, isErro
   }, [pathname, setSuccess, setIsEdit])
 
   return (
-    <form noValidate name={name} onSubmit={onSubmit}>
+    <form
+      name={name}
+      onSubmit={onSubmit}
+      noValidate
+    >
       {children}
       {
         name === 'signin' ?
@@ -60,7 +78,7 @@ export default function Form({ name, children, isValid, isSend, onSubmit, isErro
               <span
                 className={`profile__error-request ${isError ? 'profile__error-request_type_error' : isSuccess && 'profile__error-request_type_success'}`}
               >
-                {isError ? 'При обновлении профиля произошла ошибка' : 'Успешно'}
+                {isError ? 'При обновлении профиля произошла ошибка' : 'Обновление профиля прошло успешно'}
               </span>
               <button
                 className={`profile__submit`}
@@ -78,7 +96,7 @@ export default function Form({ name, children, isValid, isSend, onSubmit, isErro
               <span
               className={`profile__error-request ${isError ? 'profile__error-request_type_error' : isSuccess && 'profile__error-request_type_success'}`}
               >
-                {isError ? 'При обновлении профиля произошла ошибка' : 'Успешно'}
+                {isError ? 'При обновлении профиля произошла ошибка' : 'Обновление профиля прошло успешно'}
               </span>
               <button
                 type="submit"

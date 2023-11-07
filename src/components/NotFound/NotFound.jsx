@@ -17,5 +17,5 @@ export default function NotFound() {
         <Link className="not-found__link" onClick={handleGoBackBtnClick}>Назад</Link>
       </div>
     </section>
-  );
+  )
 }
