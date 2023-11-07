@@ -31,5 +31,5 @@ export default function Portfolio() {
         </ul>
       </nav>
     </section>
-  );
+  )
 }

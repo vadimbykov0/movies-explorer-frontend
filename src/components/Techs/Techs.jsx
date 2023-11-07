@@ -18,5 +18,5 @@ export default function Techs() {
         </ul>
       </div>
     </section>
-  );
+  )
 }

@@ -9,5 +9,5 @@ export default function Preloader() {
         <span className="preloader__round"></span>
       </div>
     </div>
-  );
+  )
 }

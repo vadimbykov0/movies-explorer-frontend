@@ -3,17 +3,18 @@
 ### Описание
 Movies Explorer Frontend — приложение на React с возможностью регистрации и авторизации пользователей, удалением, сохранением фильмов в избранном для сервиса поиска фильмов Movies Explorer.
 
-### Cсылка на репозиторий проекта
-https://github.com/vadimbykov0/movies-explorer-frontend
+### Активные ссылки 
+Репозиторий проекта https://github.com/vadimbykov0/movies-explorer-frontend
 
-### Адрес размещения фронтенда на сервере
-https://movies.vadimbykov.nomoredomainsrocks.ru
+Адрес размещения фронтенда на сервере https://movies.vadimbykov.nomoredomainsrocks.ru
 
-### Адрес домена сервера
-https://api.movies.vadimbykov.nomoredomainsrocks.ru
+Адрес домена сервера https://api.movies.vadimbykov.nomoredomainsrocks.ru
+
+Ссылка на пул реквест https://github.com/vadimbykov0/movies-explorer-frontend/pull/2
 
 ### Ссылка на макет в Figma
 Выбранный макет dark-5
+
 https://clck.ru/36Gbnf
 
 ### Запуск проекта

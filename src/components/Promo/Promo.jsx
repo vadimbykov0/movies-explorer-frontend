@@ -12,5 +12,5 @@ export default function Promo() {
       </div>
       <div className="promo__img"></div>
     </section>
-  );
+  )
 }

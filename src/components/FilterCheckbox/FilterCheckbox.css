@@ -6,6 +6,10 @@
   position: relative;
 }
 
+.search__filter-checkbox_type_disabled {
+  pointer-events: none;
+}
+
 .search__input-box {
   position: relative;
 }
@@ -16,6 +20,10 @@
   line-height: 18px;
   color: #fff;
   margin-left: 14px;
+}
+
+.search__checkbox-text_type_disabled {
+  color: #a0a0a0;
 }
 
 .search__checkbox-hidden {

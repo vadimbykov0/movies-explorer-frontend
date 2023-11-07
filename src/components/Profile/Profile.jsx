@@ -1,33 +1,58 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import Form from '../Form/Form';
 import useFormValidation from '../../hooks/useFormValidation';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 import './Profile.css';
 
-export default function Profile({ name, setLoggedIn }) {
+export default function Profile({
+  name,
+  logOut,
+  onUpdateCurrentUser,
+  isError,
+  setIsError,
+  isSuccess,
+  setSuccess,
+  setIsEdit,
+  isEdit,
+  isSend
+}) {
+
+  const currentUser = useContext(CurrentUserContext);
   const { values, errors, isInputValid, isValid, handleChange, reset } = useFormValidation();
 
   useEffect(() => {
-    reset({username: 'Виталий', email: 'pochta@yandex.ru'})
-  }, [reset])
+    reset({
+      username: currentUser.name,
+      email: currentUser.email
+    })
+  }, [reset, currentUser, isEdit])
 
-  function outLogin() {
-    setLoggedIn(false);
-  }
-
-  function onEdit(evt) {
+  function handleSubmit(evt) {
     evt.preventDefault();
+    onUpdateCurrentUser(
+      values.username,
+      values.email
+    )
   }
 
   return (
     <section className="profile">
-      <h1 className="profile__title">{`Привет, Виталий!`}</h1>
+      <h1 className="profile__title">{`Привет, ${currentUser.name}!`}</h1>
       <Form
         name={name}
         isValid={isValid}
-        onSubmit={onEdit}
+        onSubmit={handleSubmit}
+        isError={isError}
+        setIsError={setIsError}
+        values={values}
+        isSuccess={isSuccess}
+        setSuccess={setSuccess}
+        setIsEdit={setIsEdit}
+        isEdit={isEdit}
+        isSend={isSend}
       >
         <fieldset className="profile__fieldset">
           <span className="profile__subtitle">Имя</span>
@@ -40,6 +65,7 @@ export default function Profile({ name, setLoggedIn }) {
             className={`profile__input ${isInputValid.username === undefined || isInputValid.username ? '' : 'profile__input_type_invalid'}`}
             value={values.username || ''}
             onChange={handleChange}
+            disabled={isSend || !isEdit}
             required
           />
         </fieldset>
@@ -55,6 +81,8 @@ export default function Profile({ name, setLoggedIn }) {
             className={`profile__input ${isInputValid.email === undefined || isInputValid.email ? '' : 'profile__input_type_invalid'}`}
             value={values.email || ''}
             onChange={handleChange}
+            disabled={isSend || !isEdit}
+            pattern={"^\\S+@\\S+\\.\\S+$"}
             required
           />
         </fieldset>
@@ -63,10 +91,10 @@ export default function Profile({ name, setLoggedIn }) {
       <Link
         className="profile__link"
         to={'/'}
-        onClick={outLogin}
+        onClick={logOut}
       >
         Выйти из аккаунта
       </Link>
     </section>
-  );
+  )
 }
