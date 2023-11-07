@@ -111,7 +111,8 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  baseUrl: 'https://api.movies.vadimbykov.nomoredomainsrocks.ru',
+  // baseUrl: 'https://api.movies.vadimbykov.nomoredomainsrocks.ru',
+  baseUrl: 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json',
   }
