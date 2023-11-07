@@ -17,9 +17,11 @@ export default function SavedMovies({
 
   const filter = useCallback((searchQuery, isCheck, movies) => {
     setSearchedMovie(searchQuery)
-    setFilteredMovies(movies.filter((movie) => {
-      const searchName = movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
-      return isCheck ? (searchName && movie.duration <= 40) : searchName
+    setFilteredMovies(movies.filter((item) => {
+      const searchName =
+        item.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
+      return isCheck ? (searchName && item.duration <= 40) : searchName
     }))
   }, [])
 

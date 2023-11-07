@@ -26,7 +26,9 @@ export default function Movies({
     localStorage.setItem('allMovies', JSON.stringify(movies))
     setSearchedMovie(searchQuery)
     setFilteredMovies(movies.filter((item) => {
-      const searchName = item.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
+      const searchName =
+        item.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
       return isCheck ? (searchName && item.duration <= 40) : searchName
     }))
   }, [])
